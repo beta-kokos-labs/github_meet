@@ -1,50 +1,41 @@
-const peer = new Peer(); // Create a new Peer instance 
+const peer = new Peer(); // Create a new Peer instance
 const localVideo = document.getElementById('localVideo');
 const remoteVideo = document.getElementById('remoteVideo');
 
 // Function to start the local video stream
-function startLocalStream() {
-    navigator.mediaDevices.getUserMedia({ video: true, audio: true })
-        .then(stream => {
-            localVideo.srcObject = stream;
-            
-            // Listen for incoming calls and answer them
-            peer.on('call', call => {
-                // Answer the call with our stream
-                call.answer(stream);
-                
-                // When receiving the remote stream
-                call.on('stream', remoteStream => {
-                    remoteVideo.srcObject = remoteStream;
-                });
+navigator.mediaDevices.getUserMedia({ video: true, audio: true })
+    .then(stream => {
+        localVideo.srcObject = stream;
+
+        // Handle incoming calls
+        peer.on('call', call => {
+            console.log('Incoming call from', call.peer);
+            call.answer(stream); // Answer the call with the local stream
+            call.on('stream', remoteStream => {
+                remoteVideo.srcObject = remoteStream;
             });
-        })
-        .catch(err => {
-            console.error('Failed to get local stream', err);
         });
-}
+    })
+    .catch(err => {
+        console.error('Failed to get local media:', err);
+    });
 
-// Start local stream when Peer is open
-peer.on('open', id => {
-    console.log(`Peer ID is ${id}`);
-    startLocalStream();
-});
-
-// Connect to another peer
+// Function to connect to another peer
 function connectToPeer(peerId) {
     navigator.mediaDevices.getUserMedia({ video: true, audio: true })
         .then(stream => {
             const call = peer.call(peerId, stream);
-            
             call.on('stream', remoteStream => {
                 remoteVideo.srcObject = remoteStream;
             });
         })
         .catch(err => {
-            console.error('Failed to get local stream for call', err);
+            console.error('Failed to get local media for call:', err);
         });
 }
 
-// Example of connecting to another peer (replace 'peer-id-of-other-peer' with an actual ID)
-const otherPeerId = prompt('Enter peer ID to connect to:');
-connectToPeer(otherPeerId);
+// Prompt for peer ID to connect
+const peerIdToConnect = prompt('Enter the peer ID to connect to:');
+if (peerIdToConnect) {
+    connectToPeer(peerIdToConnect);
+}
