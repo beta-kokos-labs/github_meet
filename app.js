@@ -1,4 +1,4 @@
-const peer = new Peer(); // Create a new Peer instance
+const peer = new Peer(); // Create a new Peer instance 
 const localVideo = document.getElementById('localVideo');
 const remoteVideo = document.getElementById('remoteVideo');
 
