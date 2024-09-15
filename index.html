@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PeerJS Video Chat</title>
+    <style>
+        video {
+            width: 45%;
+            border: 1px solid black;
+        }
+        .container {
+            display: flex;
+            justify-content: space-between;
+            margin: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>PeerJS Video Chat</h1>
+    <div class="container">
+        <video id="localVideo" autoplay muted></video>
+        <video id="remoteVideo" autoplay></video>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/peerjs@latest/dist/peerjs.min.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
