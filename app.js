@@ -42,6 +42,7 @@ if (peerIdToConnect) {
 */
 const peerId = 'huin349ij2o3deif3wef'; // Your predefined Peer ID
 const peer = new Peer(peerId); // Initialize Peer with specific ID
+document.getElementById('e').innerText = peer
 const localVideo = document.getElementById('localVideo');
 const remoteVideo = document.getElementById('remoteVideo');
 
