@@ -40,9 +40,16 @@ if (peerIdToConnect) {
     connectToPeer(peerIdToConnect);
 }
 */
-const peerId = 'huin349ij2o3deif3wef'; // Your predefined Peer ID
-const peer = new Peer(peerId); // Initialize Peer with specific ID
-document.getElementById('e').innerText = peer
+//const peerId = 'huin349ij2o3deif3wef'; // Your predefined Peer ID
+const peer = new Peer()//peerId); // Initialize Peer with specific ID
+peer.on('open', (id) => {
+    console.log('My peer ID is: ' + id);
+    document.getElementById('e').innerText = id
+    //alert('Your peer ID is: ' + id);
+});
+
+
+
 const localVideo = document.getElementById('localVideo');
 const remoteVideo = document.getElementById('remoteVideo');
 
